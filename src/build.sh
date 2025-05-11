@@ -10,6 +10,21 @@ export SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 source $SCRIPT_DIR/shared.sh
 source $SCRIPT_DIR/args.sh
 
+function check_nfs() {
+    local dir="$1"
+    # Create directory if it doesn't exist
+    sudo mkdir -p "$dir"
+
+    # Check if the directory is on an NFS filesystem
+    if df -T "$dir" | grep -q "nfs"; then
+        print_error "ERROR: $dir is on an NFS filesystem!"
+        print_error "Using NFS for the build directory can cause issues with chroot operations."
+        print_error "Please use a local filesystem for the build directory."
+        print_error "You can modify the script to use a different path by setting BUILD_ROOT_DIR variable."
+        exit 1
+    fi
+}
+
 function check_host() {
 
     local os_ver
@@ -42,7 +57,7 @@ function clean() {
 function setup_host() {
     print_ok "Setting up host environment..."
     sudo apt update
-    sudo apt install -y \
+    sudo apt install -y -qq \
         binutils \
         debootstrap \
         squashfs-tools \
@@ -52,12 +67,16 @@ function setup_host() {
         grub2-common \
         mtools \
         dosfstools \
+	zstd \
         --no-install-recommends
     judge "Install required tools"
 
     print_ok "Creating new_building_os directory..."
     sudo mkdir -p new_building_os
     judge "Create new_building_os directory"
+
+    print_ok "Checking if build directory is on NFS..."
+    check_nfs "new_building_os"
 
     print_ok "Setting up mods executable..."
     find . -type f -name "*.sh" -exec chmod +x {} \;
@@ -93,11 +112,23 @@ function mount_folers() {
 }
 
 function run_chroot() {
+    #sudo chroot new_building_os /usr/bin/env DEBIAN_FRONTEND=${DEBIAN_FRONTEND:-readline} /root/mods/install_all_mods.sh -
+    # suppress the `setlocal` warning
+    #exec sudo chroot new_building_os /usr/bin/env LC_ALL=C /bin/bash
+
+    # setup locale first, to suppress the `setlocal` warnings
+    print_ok "Setup initial locale ($LANG_MODE) in chroot ENV..."
+    sudo chroot new_building_os apt update
+    sudo chroot new_building_os apt install -y locales
+    sudo chroot new_building_os locale-gen $LANG_MODE.UTF-8
+    sudo chroot new_building_os update-locale $LANG_MODE.UTF-8
+
+    # kick-off the modules' install
     print_ok "Running install_all_mods.sh in new_building_os..."
     print_warn "============================================"
     print_warn "   The following will run in chroot ENV!"
     print_warn "============================================"
-    sudo chroot new_building_os /usr/bin/env DEBIAN_FRONTEND=${DEBIAN_FRONTEND:-readline} /root/mods/install_all_mods.sh -
+    sudo chroot new_building_os /usr/bin/env LC_ALL=C /bin/bash /root/mods/install_all_mods.sh
     print_warn "============================================"
     print_warn "   chroot ENV execution completed!"
     print_warn "============================================"
@@ -265,7 +296,7 @@ EOF
         sudo mkfs.vfat efiboot.img && \
         mkdir efi && \
         sudo mount efiboot.img efi && \
-        sudo grub-install --efi-directory=efi --uefi-secure-boot --removable --no-nvram && \
+        sudo grub-install --target=x86_64-efi --efi-directory=efi --boot-directory=efi/boot --uefi-secure-boot --removable --no-nvram && \
         sudo umount efi && \
         rm -rf efi
     )
@@ -346,3 +377,6 @@ run_chroot
 umount_folers
 build_iso
 echo "$0 - Initial build is done!"
+
+
+

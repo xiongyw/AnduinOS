@@ -28,7 +28,6 @@ packages=(
     yaru-theme-icon
     yaru-theme-gtk
     apport
-    imagemagick*
     ubuntu-pro-client
     ubuntu-advantage-desktop-daemon
     ubuntu-advantage-tools

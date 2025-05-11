@@ -7,9 +7,9 @@ export DEBIAN_FRONTEND=noninteractive
 export SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 export HOME=/root
 
-# Set if build in an interactive way.
+# Set if `apt install` in an interactive way.
 # Can be: "-y" or ""
-export INTERACTIVE="-y"
+export INTERACTIVE="-y -qq"
 
 #==========================
 # Language Information
@@ -18,7 +18,7 @@ export INTERACTIVE="-y"
 # Set the language environment. Can be: en_US, en_GB, zh_CN, zh_TW, zh_HK, ja_JP, ko_KR, vi_VN, th_TH, de_DE, fr_FR, es_ES, ru_RU, it_IT, pt_BR, pt_PT, ar_SA, nl_NL, sv_SE, pl_PL, tr_TR
 export LANG_MODE="en_US"
 # Set the language pack code. Can be: zh, en, ja, ko, vi, th, de, fr, es, ru, it, pt, pt, ar, nl, sv, pl, tr
-export LANG_PACK_CODE="zh"
+export LANG_PACK_CODE="en"
 
 export LC_ALL=$LANG_MODE.UTF-8
 export LC_CTYPE=$LANG_MODE.UTF-8
@@ -49,19 +49,22 @@ echo "Language environment has been set to $LANG_MODE"
 export TARGET_UBUNTU_VERSION="noble"
 
 # See https://docs.anduinos.com/Install/Select-Best-Apt-Source.html
-export BUILD_UBUNTU_MIRROR="http://mirror.aiursoft.cn/ubuntu/"
+#export BUILD_UBUNTU_MIRROR="http://mirror.aiursoft.cn/ubuntu/"
+export BUILD_UBUNTU_MIRROR="http://mirror.tuna.tsinghua.edu.cn/ubuntu/"
 
 # Must be lowercase without special characters and spaces
-export TARGET_NAME="anduinos"
+export TARGET_NAME="u2404"
 
 # Business name. No special characters or spaces
 export TARGET_BUSINESS_NAME="AnduinOS"
 
 # Version number. Must be in the format of x.y.z
-export TARGET_BUILD_VERSION="1.1.5"
+export TARGET_BUILD_VERSION="u2404"
 
 # Fork version. Must be in the format of x.y
-export TARGET_BUILD_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+# git is not avaialbe
+#export TARGET_BUILD_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+export TARGET_BUILD_BRANCH="u2404"
 
 #===========================
 # Installer customization
@@ -75,29 +78,29 @@ export TARGET_PACKAGE_REMOVE="
     os-prober \
 "
 
-#============================
-# Store experience customization
-#============================
-# How to install the store. Can be "none", "web", "flatpak", "snap"
-# none:     no app store
-# web:      use a web shortcut to browse the app store
-# flatpak:  use gnome software to browse the app store, and install flatpak as plugin
-# snap:     use gnome software to browse the app store, and install snap as plugin
-export STORE_PROVIDER="web"
-
-# The mirror URL for flathub. Can be: "https://mirror.sjtu.edu.cn/flathub"
-export FLATHUB_MIRROR=""
-if [[ "$FLATHUB_MIRROR" != "" && "$STORE_PROVIDER" != "flatpak" ]]; then
-    echo "Error: FLATHUB_MIRROR is set, but STORE_PROVIDER is not set to flatpak"
-    exit 1
-fi
-
-# The gpg file for the flathub mirror. Can be: "https://mirror.sjtu.edu.cn/flathub/flathub.gpg"
-export FLATHUB_GPG=""
-if [[ "$FLATHUB_GPG" != "" && "$FLATHUB_MIRROR" == "" ]]; then
-    echo "Error: FLATHUB_GPG is set, but FLATHUB_MIRROR is not set"
-    exit 1
-fi
+##============================
+## Store experience customization
+##============================
+## How to install the store. Can be "none", "web", "flatpak", "snap"
+## none:     no app store
+## web:      use a web shortcut to browse the app store
+## flatpak:  use gnome software to browse the app store, and install flatpak as plugin
+## snap:     use gnome software to browse the app store, and install snap as plugin
+export STORE_PROVIDER="none"
+#
+## The mirror URL for flathub. Can be: "https://mirror.sjtu.edu.cn/flathub"
+#export FLATHUB_MIRROR="https://mirror.sjtu.edu.cn/flathub"
+#if [[ "$FLATHUB_MIRROR" != "" && "$STORE_PROVIDER" != "flatpak" ]]; then
+#    echo "Error: FLATHUB_MIRROR is set, but STORE_PROVIDER is not set to flatpak"
+#    exit 1
+#fi
+#
+## The gpg file for the flathub mirror. Can be: "https://mirror.sjtu.edu.cn/flathub/flathub.gpg"
+#export FLATHUB_GPG="https://mirror.sjtu.edu.cn/flathub/flathub.gpg"
+#if [[ "$FLATHUB_GPG" != "" && "$FLATHUB_MIRROR" == "" ]]; then
+#    echo "Error: FLATHUB_GPG is set, but FLATHUB_MIRROR is not set"
+#    exit 1
+#fi
 
 #============================
 # Browser configuration
@@ -173,7 +176,7 @@ export TIMEZONE="Asia/Shanghai"
 #============================
 # Weather plugin configuration
 #============================
-export CONFIG_WEATHER_LOCATION="[(uint32 0, '苏州, 江苏', uint32 0, '31.311123,120.6212881')]"
+export CONFIG_WEATHER_LOCATION="[(uint32 0, 'Beijing, China', uint32 0, '40.013,116.315')]"
 
 #============================
 # Live system configuration
@@ -194,6 +197,14 @@ export DEFAULT_APPS="
     seahorse \
     evince \
     shotwell \
+    gimp \
+    inkscape \
+    darktable \
+    meld \
+    qpdfview \
+    youtubedl-gui \
+    flameshot \
+    gitk \
     remmina remmina-plugin-rdp \
     rhythmbox rhythmbox-plugins \
     totem totem-plugins \
@@ -240,5 +251,29 @@ export DEFAULT_CLI_TOOLS="
     smartmontools \
     traceroute \
     whois \
-    nmap
+    nmap \
+    ncdu \
+    nmon \
+    tmux \
+    tree \
+    jq \
+    curl \
+    vim \
+    dos2unix \
+    ripgrep \
+    git tig git-lfs \
+    ranger \
+    graphviz \
+    openssh-server \
+    autossh \
+    cmake cmake-doc cmake-format ninja-build \
+    autoconf automake flex bison \
+    build-essential \
+    nfs-kernel-server \
+    gcc-12 g++-12 \
+    gcc-11 g++-11 \
+    gcc-11 g++-10 \
+    gdb ddd \
+    samba \
+    sshfs
     "

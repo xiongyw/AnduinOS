@@ -90,7 +90,7 @@ for ((i=0; i<lang_count; i++)); do
   done
 
   # Initialize retry parameters
-  MAX_RETRIES=3
+  MAX_RETRIES=1
   attempt=1
 
   while [ $attempt -le $MAX_RETRIES ]; do

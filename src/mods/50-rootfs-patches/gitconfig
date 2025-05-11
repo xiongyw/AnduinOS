@@ -1,0 +1,24 @@
+[user]
+    # Default user info (can be overridden by users)
+    name = Yuwu Xiong
+    email = 5070319@qq.com
+
+[core]
+    # Remove trailing whitespace on save (similar to your Vim request)
+    autocrlf = input
+    excludesfile = /etc/gitignore
+    editor = vim
+
+[pull]
+    # Options: merge (default), rebase, or ff-only (fast-forward only)
+    rebase = false  # Set to 'true' to default to rebase instead of merge
+    # ff = only  # Uncomment to enforce fast-forward only (if desired)
+
+[alias]
+    # Example: Add useful aliases for all users
+    st = status
+    co = checkout
+
+[color]
+    # Enable colored output by default
+    ui = auto

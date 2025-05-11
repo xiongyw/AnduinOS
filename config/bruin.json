@@ -1,0 +1,14 @@
+[
+    {
+        "lang_mode": "en_US",
+        "lang_pack_code": "en",
+        "input_method_install": "ibus-rime",
+        "config_ibus_rime": "true",
+        "timezone": "Asia/Shanghai",
+        "config_weather_location": "[(uint32 0, 'Beijing, China', uint32 0, '40.013,116.315')]",
+        "config_input_method": "[('xkb', 'us'), ('ibus', 'rime')]",
+        "live_ubuntu_mirror": "https://mirrors.tuna.tsinghua.edu.cn/ubuntu/",
+        "flathub_mirror": "https://mirror.sjtu.edu.cn/flathub",
+        "flathub_gpg": "https://mirror.sjtu.edu.cn/flathub/flathub.gpg"
+    }
+]
