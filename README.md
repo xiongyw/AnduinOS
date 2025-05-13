@@ -1,12 +1,3 @@
-# Clone
-
-Since the repo uses `git-lfs`, before cloning, do the following:
-
-```
-$ sudo apt install git-lfs
-$ git lfs install
-```
-
 # AnduinOS
 
 [![GPL licensed](https://img.shields.io/badge/license-GPL-blue.svg)](https://gitlab.aiursoft.cn/anduin/anduinos/-/blob/1.1/LICENSE)
