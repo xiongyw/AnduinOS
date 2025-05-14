@@ -330,7 +330,7 @@ EOF
         -as mkisofs \
         -iso-level 3 \
         -full-iso9660-filenames \
-        -volid "$TARGET_NAME" \
+        -volid "${TARGET_NAME^^}" \
         -eltorito-boot boot/grub/bios.img \
             -no-emul-boot \
             -boot-load-size 4 \

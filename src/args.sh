@@ -53,6 +53,10 @@ export TARGET_UBUNTU_VERSION="noble"
 export BUILD_UBUNTU_MIRROR="http://mirror.tuna.tsinghua.edu.cn/ubuntu/"
 
 # Must be lowercase without special characters and spaces
+# This TARGET_NAME is also used as `volid` (volume id) for iso file, which must be:
+# - Uppercase letters (A-Z), numbers (0-9), and understores (_) only;
+# - 32 characters maximum.
+# it will be converted to uppercase on the command line of xorriso
 export TARGET_NAME="u2404"
 
 # Business name. No special characters or spaces
@@ -267,7 +271,8 @@ export DEFAULT_CLI_TOOLS="
     openssh-server \
     autossh \
     cmake cmake-doc cmake-format ninja-build \
-    autoconf automake flex bison \
+    autoconf automake libtool-bin \
+    flex bison \
     build-essential \
     nfs-kernel-server \
     gcc-12 g++-12 \
