@@ -33,6 +33,7 @@ packages=(
     ubuntu-advantage-tools
     ubuntu-pro-client-l10n
     software-properties-gtk
+    unattended-upgrades
 )
 
 for pkg in "${packages[@]}"; do
