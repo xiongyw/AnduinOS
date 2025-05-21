@@ -5,7 +5,7 @@ set -u                  # treat unset variable as error
 print_ok "Install Weixin For Linux v4.0.1"
 
 cat ./WeChatLinux_x86_64.deb.* > /tmp/WeChatLinux_x86_64.deb
-apt install /tmp/WeChatLinux_x86_64.deb
+apt install $INTERACTIVE /tmp/WeChatLinux_x86_64.deb
 rm /tmp/WeChatLinux_x86_64.deb
 
 

@@ -9,7 +9,7 @@ export HOME=/root
 
 # Set if `apt install` in an interactive way.
 # Can be: "-y" or ""
-export INTERACTIVE="-y -qq"
+export INTERACTIVE="-y"
 
 #==========================
 # Language Information
@@ -259,6 +259,7 @@ export DEFAULT_CLI_TOOLS="
     ncdu \
     nmon \
     tmux \
+    moreutils \
     tree \
     jq \
     curl \

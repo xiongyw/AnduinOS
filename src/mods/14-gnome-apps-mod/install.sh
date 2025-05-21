@@ -42,7 +42,6 @@ apt install $INTERACTIVE \
     appstream \
     packagekit-tools \
     python3-babel \
-    unattended-upgrades \
     exfatprogs \
     iw \
     xxd \

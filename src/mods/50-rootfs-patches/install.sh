@@ -54,17 +54,70 @@ EOF
 judge "Add git branch display to /etc/skel/.bashrc"
 #------------------------------------------------------------------
 
-print_ok "Copying /opt/AppImage/*.AppImage"
+print_ok "mkdir /opt/AppImage/"
 mkdir -p /opt/AppImage
-#cp ./*.AppImage /opt/AppImage/
+chown -R root:root /opt/AppImage
+judge "mkdir /opt/AppImage"
+
+#------------------------------------------------------------------
+# asbru-cm
+print_ok "Setting up asbru-cm"
 cat ./asbru-cm-6.4.0-1-x86_64.AppImage.part-* > /opt/AppImage/asbru-cm-6.4.0-1-x86_64.AppImage
+chmod +x /opt/AppImage/asbru-cm-6.4.0-1-x86_64.AppImage
+ln -s /opt/AppImage/asbru-cm-6.4.0-1-x86_64.AppImage /usr/local/bin/asbru-cm
+mkdir /tmp/asbru-cm
+pushd /tmp/asbru-cm
+/usr/local/bin/asbru-cm --appimage-extract
+cp squashfs-root/asbru-cm.svg /usr/share/icons/hicolor/scalable/apps/
+cp squashfs-root/asbru-cm.desktop /usr/share/applications/
+sed -i 's|^Icon=.*$|Icon=/usr/share/icons/hicolor/scalable/apps/asbru-cm.svg|' /usr/share/applications/asbru-cm.desktop
+popd
+rm -rf /tmp/asbru-cm
+judge "Setting up asbru-cm"
+
+#------------------------------------------------------------------
+# Cherry-Studio
+print_ok "Setting up cherrystudio"
 cat ./Cherry-Studio-1.2.10-x86_64.AppImage.part-* > /opt/AppImage/Cherry-Studio-1.2.10-x86_64.AppImage
+chmod +x /opt/AppImage/Cherry-Studio-1.2.10-x86_64.AppImage
+ln -s /opt/AppImage/Cherry-Studio-1.2.10-x86_64.AppImage /usr/local/bin/cherrystudio
+mkdir /tmp/cherrystudio
+pushd /tmp/cherrystudio
+/usr/local/bin/cherrystudio --appimage-extract
+cp squashfs-root/usr/share/icons/hicolor/128x128/apps/cherrystudio.png /usr/share/icons/hicolor/128x128/apps/
+cp squashfs-root/cherrystudio.desktop /usr/share/applications/
+sed -i 's|Exec=AppRun --no-sandbox %U|Exec=cherrystudio --no-sandbox %U|' /usr/share/applications/cherrystudio.desktop
+sed -i 's|^Icon=.*$|Icon=/usr/share/icons/hicolor/128x128/apps/cherrystudio.png|' /usr/share/applications/cherrystudio.desktop
+popd
+rm -rf /tmp/cherrystudio
+judge "Setting up cherrystudio"
+
+#------------------------------------------------------------------
+# Google-chrome
+print_ok "Setting up google-chrome"
 cat ./Google-Chrome-stable-136.0.7103.92-1-x86_64.AppImage.part-* > /opt/AppImage/Google-Chrome-stable-136.0.7103.92-1-x86_64.AppImage
-chown root:root /opt/AppImage/*.AppImage
-chmod +x /opt/AppImage/*.AppImage
-cat << 'EOF' >> /etc/skel/.profile
-PATH="/opt/AppImage:$PATH"
-EOF
-judge "Copying /optAppImage/*.AppImage"
+chmod +x /opt/AppImage/Google-Chrome-stable-136.0.7103.92-1-x86_64.AppImage
+ln -s /opt/AppImage/Google-Chrome-stable-136.0.7103.92-1-x86_64.AppImage /usr/local/bin/google-chrome
+mkdir /tmp/google-chrome
+pushd /tmp/google-chrome
+/usr/local/bin/google-chrome --appimage-extract
+cp squashfs-root/google-chrome.png /usr/share/icons/hicolor/128x128/apps/
+rm /usr/share/icons/Fluent/scalable/apps/google-chrome*.svg
+cp squashfs-root/google-chrome.desktop /usr/share/applications/
+sed -i 's|^Icon=.*$|Icon=/usr/share/icons/hicolor/128x128/apps/google-chrome.png|' /usr/share/applications/google-chrome.desktop
+popd
+rm -rf /tmp/google-chrome
+judge "Setting up google-chrome"
+
+#------------------------------------------------------------------
+# update icon and desktop caches
+gtk-update-icon-cache -f /usr/share/icons/hicolor
+update-desktop-database
+
+#------------------------------------------------------------------
+##
+#cat << 'EOF' >> /etc/skel/.profile
+#PATH="/opt/AppImage:$PATH"
+#EOF
 
 #------------------------------------------------------------------
