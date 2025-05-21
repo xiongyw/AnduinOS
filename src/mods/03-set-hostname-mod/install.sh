@@ -4,6 +4,10 @@ set -u                  # treat unset variable as error
 
 print_ok "Setting up hostname..."
 echo "$TARGET_NAME" > /etc/hostname
+
+# note that this changes the transient hostname of the host, even it's in chroot ENV,
+# as the /proc/sys/kernel/hostname is shared (bind mounted). we need to set it back
+# when exited from chroot env.
 hostname "$TARGET_NAME"
 judge "Set up hostname to $TARGET_NAME"
 

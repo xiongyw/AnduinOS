@@ -136,6 +136,9 @@ function run_chroot() {
 
     print_ok "Sleeping for 5 seconds to allow chroot to exit cleanly..."
     sleep 5
+
+    print_ok "Setting the transient hostname back to the static one"
+    sudo hostnamectl set-hostname --transient ""
 }
 
 function umount_folers() {
@@ -168,7 +171,7 @@ function build_iso() {
     sudo cp new_building_os/boot/vmlinuz-**-**-generic image/casper/vmlinuz
     sudo cp new_building_os/boot/initrd.img-**-**-generic image/casper/initrd
     judge "Copy kernel files"
-    
+
     print_ok "Generating grub.cfg..."
     touch image/$TARGET_NAME
     cp $SCRIPT_DIR/args.sh image/$TARGET_NAME
@@ -234,7 +237,7 @@ EOF
         -e "tmp/.*" \
         -e "swapfile"
     judge "Compress rootfs"
-    
+
     print_ok "Generating filesystem.size on /casper/filesystem.size..."
     printf $(sudo du -sx --block-size=1 new_building_os | cut -f1) > image/casper/filesystem.size
     judge "Generate filesystem.size"
