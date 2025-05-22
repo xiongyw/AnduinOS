@@ -23,8 +23,9 @@ EOF
 # this will install deepin-wine8-stable as a dependency
 apt install $INTERACTIVE com.qq.weixin.work.deepin
 
-# reinstall `gnome-control-center*` which was removed by `purge libsane1`
-apt install $INTERACTIVE gnome-control-center*
+# reinstall `gnome-control-center*` and `kolourpaint` which were removed by `purge libsane1`
+print_ok "Reinstall 'gnome-control-center*' and 'kolourpaint' which were removed by 'purge libsane1'"
+apt install $INTERACTIVE gnome-control-center* kolourpaint
 
 # https://github.com/zq1997/deepin-wine/issues/378
 sed -i 's/7z x[^;]*$/& || true/' /opt/deepinwine/tools/run_v4.sh

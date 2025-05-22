@@ -204,10 +204,13 @@ export DEFAULT_APPS="
     gimp \
     inkscape \
     darktable \
+    shotcut \
+    xpad \
     meld \
     qpdfview \
     youtubedl-gui \
     flameshot \
+    kolourpaint \
     gitk \
     remmina remmina-plugin-rdp \
     rhythmbox rhythmbox-plugins \
@@ -221,6 +224,7 @@ export DEFAULT_APPS="
     gnome-sushi \
     qalculate-gtk \
     yelp \
+    dconf-editor \
     gnome-user-docs \
     gnome-disk-utility \
     gnome-logs \

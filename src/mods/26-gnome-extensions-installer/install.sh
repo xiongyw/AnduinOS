@@ -50,7 +50,10 @@ extensions=(
     "tiling-assistant@leleat-on-github"
     "mediacontrols@cliffniff.github.com"
     "clipboard-indicator@tudmotu.com"
+    "panel-date-format@keiii.github.com"
 )
+
+# Note: the default system-wide extension settings will be added in `src/mods/35-dconf-patch/install.sh`
 
 for extension in "${extensions[@]}"; do
     install_extension "$extension"

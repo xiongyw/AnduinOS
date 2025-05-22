@@ -42,6 +42,11 @@ print_ok "Configuring weather location from CONFIG_WEATHER_LOCATION"
 dconf write /org/gnome/shell/extensions/openweatherrefined/locs "$CONFIG_WEATHER_LOCATION"
 judge "Configure weather location"
 
+print_ok "Configuring panel-date-format gnome extension"
+# https://github.com/KEIII/gnome-shell-panel-date-format
+dconf write /org/gnome/shell/extensions/panel-date-format/format "'%H:%M:%S [%u]\n%Y.%m.%d'"
+judge "Configuring panel-date-format gnome extension"
+
 print_ok "Copying root's dconf settings to /etc/skel"
 mkdir -p /etc/skel/.config/dconf
 cp /root/.config/dconf/user /etc/skel/.config/dconf/user

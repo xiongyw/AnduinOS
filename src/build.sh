@@ -89,7 +89,7 @@ function download_base_system() {
     judge "Download base system"
 }
 
-function mount_folers() {
+function mount_folders() {
     print_ok "Reloading systemd daemon..."
     sudo systemctl daemon-reload
     judge "Reload systemd daemon"
@@ -141,7 +141,7 @@ function run_chroot() {
     sudo hostnamectl set-hostname --transient ""
 }
 
-function umount_folers() {
+function umount_folders() {
     print_ok "Cleaning mods from new_building_os/root..."
     sudo rm -rf new_building_os/root/mods
     judge "Clean up new_building_os /root/mods"
@@ -375,9 +375,9 @@ check_host
 clean
 setup_host
 download_base_system
-mount_folers
+mount_folders
 run_chroot
-umount_folers
+umount_folders
 build_iso
 echo "$0 - Initial build is done!"
 
