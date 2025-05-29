@@ -205,6 +205,8 @@ export DEFAULT_APPS="
     inkscape \
     darktable \
     shotcut \
+    smplayer \
+    vlc \
     xpad \
     meld \
     qpdfview \
@@ -212,6 +214,8 @@ export DEFAULT_APPS="
     flameshot \
     kolourpaint \
     gitk \
+    thunar \
+    thunar-* \
     remmina remmina-plugin-rdp \
     rhythmbox rhythmbox-plugins \
     totem totem-plugins \
@@ -273,6 +277,11 @@ export DEFAULT_CLI_TOOLS="
     git tig git-lfs \
     ranger \
     graphviz \
+    ffmpeg \
+    vainfo \
+    i965-va-driver \
+    intel-gpu-tools \
+    mpv \
     openssh-server \
     autossh \
     cmake cmake-doc cmake-format ninja-build \

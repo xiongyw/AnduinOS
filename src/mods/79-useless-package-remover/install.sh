@@ -33,6 +33,18 @@ packages=(
     ubuntu-advantage-tools
     ubuntu-pro-client-l10n
     software-properties-gtk
+    nautilus
+    tracker
+    tracker-extract
+    tracker-miner-fs
+    gnome-online-account
+    evolution-data-server
+    zeitgeist-*
+    whoopsie
+    ubuntu-report
+    gnome-remote-desktop
+    gvfs-backends
+    packagekit
 )
 
 for pkg in "${packages[@]}"; do
